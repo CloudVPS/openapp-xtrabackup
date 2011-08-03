@@ -3,7 +3,7 @@ PREFIX=${CURDIR}/debian/openapp-xtrabackup
 install:
 # bin
 	mkdir -p $(PREFIX)/usr/sbin
-	cp openapp-mysql-backupmethod $(PREFIX)/usr/bin
+	cp openapp-mysql-backupmethod $(PREFIX)/usr/sbin/
 
 #man
 	mkdir -p $(PREFIX)/usr/share/man/man1
