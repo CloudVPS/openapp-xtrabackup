@@ -2,8 +2,8 @@ PREFIX=${CURDIR}/debian/openapp-xtrabackup
 
 install:
 # bin
-	mkdir -p $(PREFIX)/usr/sbin
-	cp openapp-mysql-backupmethod $(PREFIX)/usr/sbin/
+	mkdir -p $(PREFIX)/usr/bin
+	cp openapp-mysql-backupmethod $(PREFIX)/usr/bin/
 
 #man
 	mkdir -p $(PREFIX)/usr/share/man/man1
@@ -16,7 +16,7 @@ install:
 
 uninstall:
 # bin
-	rm -rf $(PREFIX)/usr/sbin/openapp-mysql-backupmethod
+	rm -rf $(PREFIX)/usr/bin/openapp-mysql-backupmethod
 	rm -rf $(PREFIX)/usr/share/man/man1/openapp-mysql-backupmethod.1.gz
 
 clean:
