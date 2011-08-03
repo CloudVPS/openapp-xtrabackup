@@ -1,0 +1,47 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH OPENAPP-MYSQL-BACKUPMETHOD 1 "July 29, 2011"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+openapp-mysql-backupmethod \- Select the requested backupmethod for Mysql
+.SH SYNOPSIS
+.B openapp-mysql-backupmethod (stdin|mysqldump|xtrabackup)
+.SH DESCRIPTION
+This manual page documents briefly the
+.B openapp-mysql-backupmethod
+command.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics,
+.\" respectively.
+\fBopenapp-mysql-backupmethod\fP is a program that easily configures the
+.br
+requested backupmethod for Mysql. You can choose from Xtrabackup (but you need
+.br
+to install that manually, see [1]) or Mysqldump.
+.br
+.SH OPTIONS
+This program has one required argument:
+.br
+ - (stdin|mysqldump|xtrabackup): The version you want to use. stdin allows you
+.br
+   to echo and pipe the setting through openapp-mysql-backupmethod
+.SH AUTHOR
+openapp-mysql-backupmethod was written by Mark Schouten.
+.PP
+This manual page was written by Mark Schouten <mark@tuxis.nl>, for the OpenApp
+.br
+project (and may be used by others).

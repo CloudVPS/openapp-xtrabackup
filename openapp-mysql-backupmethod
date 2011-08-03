@@ -1,0 +1,22 @@
+#!/bin/bash
+
+fatal() {
+    echo "ERROR: $1"
+    exit 1
+}
+
+[ -z $1 ] && fatal "You should enter: mysqldump, xtrabackup or stdin"
+[ "$1" = "stdin" ] && read -p "Enter the method you wish to use: " METHOD
+[ -z ${METHOD} ] && METHOD=$1
+
+case "$METHOD" in
+	xtrabackup)
+		openapp-backup-enmod xtrabackup
+	;;
+	mysqldump)
+		openapp-backup-dismod xtrabackup
+	;;
+	*)
+		fatal "You should enter: mysql, xtrabackup or stdin"
+	;;
+esac

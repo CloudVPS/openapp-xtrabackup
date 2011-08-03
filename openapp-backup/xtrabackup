@@ -1,0 +1,49 @@
+#!/bin/bash
+# Prio: 1.05
+
+. /usr/lib/openapp-backup/includes/index
+
+###
+# This script will set the siteurl to the primary ip of this box
+
+BACKUPDIR=$1
+ACTION=$2
+
+run_backup() {
+	[ -r /etc/openapp-backup/scripts.d/mysql ] || fatal "You should enable the mysql-module for openapp-backup too"
+	[ ! -x /usr/bin/innobackupex ] && fatal "xtrabackup is not installed. See http://openpanel.com/openapp-xtrabackup for instructions"
+
+	set -o pipefail
+
+	MUSER=debian-sys-maint
+	MPASS=$(grep -m1 ^password /etc/mysql/debian.cnf | cut -f2 -d'=' | sed -e 's/ //g')
+
+	OUTPUT=$(innobackupex --user ${MUSER} --password ${MPASS} --no-timestamp ${BACKUPDIR}/data 2>&1)
+
+	echo "${OUTPUT}" | grep -q 'innobackupex: completed OK!' || warning "Innobackupex gave errors. See output: ${OUTPUT}"
+}
+
+run_restore() {
+	[ ! -x /usr/bin/innobackupex ] && fatal "xtrabackup is not installed. See http://openpanel.com/openapp-xtrabackup for instructions"
+
+	set -o pipefail
+
+	tar zvf /var/backups/var-lib-mysql.tar.gz /var/lib/mysql
+	rm -rf /var/lib/mysql
+	mkdir /var/lib/mysql
+
+	OUTPUT=$(innobackupex --copy-back ${BACKUPDIR}/data 2>&1)
+
+	echo "${OUTPUT}" | grep -q 'innobackupex: completed OK!' || warning "Innobackupex gave errors. See output: ${OUTPUT}"
+	rm /var/lib/mysql/{xtrabackup*,backup-my.cnf,stdout,stderr}
+	chown -R mysql:mysql /var/lib/mysql
+}
+
+case ${ACTION} in
+    backup)
+		run_backup
+    ;;
+    restore)
+		run_restore
+    ;;
+esac

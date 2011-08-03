@@ -1,0 +1,14 @@
+Source: openapp-xtrabackup
+Section: database
+Priority: extra
+Maintainer: Mark Schouten <mark@tuxis.nl>
+Build-Depends: debhelper
+Standards-Version: 3.9.1
+Homepage: http://www.openpanel.com/openapp/
+
+Package: openapp-xtrabackup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, openapp-backup, xtrabackup
+Description: This will install support for xtrabackup in OpenApp
+ Please note that you need xtrabackup too. See
+ http://openpanel.com/openapp-xtrabackup for instructions
